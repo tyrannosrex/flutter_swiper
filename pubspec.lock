@@ -58,9 +58,11 @@ packages:
   flutter_page_indicator:
     dependency: "direct main"
     description:
-      name: flutter_page_indicator
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: master
+      resolved-ref: "5823bd1534a877c619cd77d7ab0b672596e0c2da"
+      url: "https://github.com/tyrannosrex/flutter_page_indicator.git"
+    source: git
     version: "0.0.3"
   flutter_test:
     dependency: "direct dev"
@@ -138,9 +140,11 @@ packages:
   transformer_page_view:
     dependency: "direct main"
     description:
-      name: transformer_page_view
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: master
+      resolved-ref: "8fc7b107451fe7e667af6b364970e615fab5c0eb"
+      url: "https://github.com/tyrannosrex/transformer_page_view.git"
+    source: git
     version: "0.1.6"
   typed_data:
     dependency: transitive

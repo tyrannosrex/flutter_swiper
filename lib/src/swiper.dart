@@ -448,12 +448,12 @@ class _SwiperState extends _SwiperTimerMixin {
     }
   }
 
-  void _onIndexChanged(int index) {
+  void _onIndexChanged(int? index) {
     setState(() {
       _activeIndex = index;
     });
     if (widget.onIndexChanged != null) {
-      widget.onIndexChanged!(index);
+      widget.onIndexChanged!(index!);
     }
   }
 
@@ -916,10 +916,10 @@ class ScaleAndFadeTransformer extends PageTransformer {
 
   @override
   Widget transform(Widget item, TransformInfo info) {
-    double position = info.position;
+    double? position = info.position;
     Widget child = item;
     if (_scale != null) {
-      double scaleFactor = (1 - position.abs()) * (1 - _scale!);
+      double scaleFactor = (1 - position!.abs()) * (1 - _scale!);
       double scale = _scale! + scaleFactor;
 
       child = new Transform.scale(
@@ -929,7 +929,7 @@ class ScaleAndFadeTransformer extends PageTransformer {
     }
 
     if (_fade != null) {
-      double fadeFactor = (1 - position.abs()) * (1 - _fade!);
+      double fadeFactor = (1 - position!.abs()) * (1 - _fade!);
       double opacity = _fade! + fadeFactor;
       child = new Opacity(
         opacity: opacity,
