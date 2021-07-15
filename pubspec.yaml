@@ -8,8 +8,17 @@ dependencies:
   flutter:
     sdk: flutter
 
-  transformer_page_view: ^0.1.6
-  flutter_page_indicator: ^0.0.3
+  # transformer_page_view: ^0.1.6
+  transformer_page_view:
+    git:
+      url: https://github.com/tyrannosrex/transformer_page_view.git
+      ref: master
+  # flutter_page_indicator: ^0.0.3
+  flutter_page_indicator:
+    git:
+      url: https://github.com/tyrannosrex/flutter_page_indicator.git
+      ref: master
+  
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
