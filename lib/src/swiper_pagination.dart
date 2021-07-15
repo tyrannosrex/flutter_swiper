@@ -6,10 +6,10 @@ import 'package:flutter_page_indicator/flutter_page_indicator.dart';
 
 class FractionPaginationBuilder extends SwiperPlugin {
   ///color ,if set null , will be Theme.of(context).scaffoldBackgroundColor
-  final Color color;
+  final Color? color;
 
   ///color when active,if set null , will be Theme.of(context).primaryColor
-  final Color activeColor;
+  final Color? activeColor;
 
   ////font size
   final double fontSize;
@@ -17,22 +17,18 @@ class FractionPaginationBuilder extends SwiperPlugin {
   ///font size when active
   final double activeFontSize;
 
-  final Key key;
+  final Key? key;
 
   const FractionPaginationBuilder(
-      {this.color,
-      this.fontSize: 20.0,
-      this.key,
-      this.activeColor,
-      this.activeFontSize: 35.0});
+      {this.color, this.fontSize: 20.0, this.key, this.activeColor, this.activeFontSize: 35.0});
 
   @override
-  Widget build(BuildContext context, SwiperPluginConfig config) {
+  Widget build(BuildContext context, SwiperPluginConfig? config) {
     ThemeData themeData = Theme.of(context);
     Color activeColor = this.activeColor ?? themeData.primaryColor;
     Color color = this.color ?? themeData.scaffoldBackgroundColor;
 
-    if (Axis.vertical == config.scrollDirection) {
+    if (Axis.vertical == config!.scrollDirection) {
       return new Column(
         key: key,
         mainAxisSize: MainAxisSize.min,
@@ -72,10 +68,10 @@ class FractionPaginationBuilder extends SwiperPlugin {
 
 class RectSwiperPaginationBuilder extends SwiperPlugin {
   ///color when current index,if set null , will be Theme.of(context).primaryColor
-  final Color activeColor;
+  final Color? activeColor;
 
   ///,if set null , will be Theme.of(context).scaffoldBackgroundColor
-  final Color color;
+  final Color? color;
 
   ///Size of the rect when activate
   final Size activeSize;
@@ -86,7 +82,7 @@ class RectSwiperPaginationBuilder extends SwiperPlugin {
   /// Space between rects
   final double space;
 
-  final Key key;
+  final Key? key;
 
   const RectSwiperPaginationBuilder(
       {this.activeColor,
@@ -97,20 +93,20 @@ class RectSwiperPaginationBuilder extends SwiperPlugin {
       this.space: 3.0});
 
   @override
-  Widget build(BuildContext context, SwiperPluginConfig config) {
+  Widget build(BuildContext context, SwiperPluginConfig? config) {
     ThemeData themeData = Theme.of(context);
     Color activeColor = this.activeColor ?? themeData.primaryColor;
     Color color = this.color ?? themeData.scaffoldBackgroundColor;
 
     List<Widget> list = [];
 
-    if (config.itemCount > 20) {
+    if (config!.itemCount! > 20) {
       print(
           "The itemCount is too big, we suggest use FractionPaginationBuilder instead of DotSwiperPaginationBuilder in this sitituation");
     }
 
-    int itemCount = config.itemCount;
-    int activeIndex = config.activeIndex;
+    int itemCount = config.itemCount!;
+    int? activeIndex = config.activeIndex;
 
     for (int i = 0; i < itemCount; ++i) {
       bool active = i == activeIndex;
@@ -144,10 +140,10 @@ class RectSwiperPaginationBuilder extends SwiperPlugin {
 
 class DotSwiperPaginationBuilder extends SwiperPlugin {
   ///color when current index,if set null , will be Theme.of(context).primaryColor
-  final Color activeColor;
+  final Color? activeColor;
 
   ///,if set null , will be Theme.of(context).scaffoldBackgroundColor
-  final Color color;
+  final Color? color;
 
   ///Size of the dot when activate
   final double activeSize;
@@ -158,24 +154,19 @@ class DotSwiperPaginationBuilder extends SwiperPlugin {
   /// Space between dots
   final double space;
 
-  final Key key;
+  final Key? key;
 
   const DotSwiperPaginationBuilder(
-      {this.activeColor,
-      this.color,
-      this.key,
-      this.size: 10.0,
-      this.activeSize: 10.0,
-      this.space: 3.0});
+      {this.activeColor, this.color, this.key, this.size: 10.0, this.activeSize: 10.0, this.space: 3.0});
 
   @override
-  Widget build(BuildContext context, SwiperPluginConfig config) {
-    if (config.itemCount > 20) {
+  Widget build(BuildContext context, SwiperPluginConfig? config) {
+    if (config!.itemCount! > 20) {
       print(
           "The itemCount is too big, we suggest use FractionPaginationBuilder instead of DotSwiperPaginationBuilder in this sitituation");
     }
-    Color activeColor = this.activeColor;
-    Color color = this.color;
+    Color? activeColor = this.activeColor;
+    Color? color = this.color;
 
     if (activeColor == null || color == null) {
       ThemeData themeData = Theme.of(context);
@@ -183,12 +174,11 @@ class DotSwiperPaginationBuilder extends SwiperPlugin {
       color = this.color ?? themeData.scaffoldBackgroundColor;
     }
 
-    if (config.indicatorLayout != PageIndicatorLayout.NONE &&
-        config.layout == SwiperLayout.DEFAULT) {
+    if (config.indicatorLayout != PageIndicatorLayout.NONE && config.layout == SwiperLayout.DEFAULT) {
       return new PageIndicator(
-        count: config.itemCount,
-        controller: config.pageController,
-        layout: config.indicatorLayout,
+        count: config.itemCount!,
+        controller: config.pageController!,
+        layout: config.indicatorLayout!,
         size: size,
         activeColor: activeColor,
         color: color,
@@ -198,8 +188,8 @@ class DotSwiperPaginationBuilder extends SwiperPlugin {
 
     List<Widget> list = [];
 
-    int itemCount = config.itemCount;
-    int activeIndex = config.activeIndex;
+    int itemCount = config.itemCount!;
+    int? activeIndex = config.activeIndex;
 
     for (int i = 0; i < itemCount; ++i) {
       bool active = i == activeIndex;
@@ -232,16 +222,15 @@ class DotSwiperPaginationBuilder extends SwiperPlugin {
   }
 }
 
-typedef Widget SwiperPaginationBuilder(
-    BuildContext context, SwiperPluginConfig config);
+typedef Widget SwiperPaginationBuilder(BuildContext context, SwiperPluginConfig? config);
 
 class SwiperCustomPagination extends SwiperPlugin {
   final SwiperPaginationBuilder builder;
 
-  SwiperCustomPagination({@required this.builder}) : assert(builder != null);
+  SwiperCustomPagination({required this.builder}) : assert(builder != null);
 
   @override
-  Widget build(BuildContext context, SwiperPluginConfig config) {
+  Widget build(BuildContext context, SwiperPluginConfig? config) {
     return builder(context, config);
   }
 }
@@ -257,7 +246,7 @@ class SwiperPagination extends SwiperPlugin {
 
   /// Alignment.bottomCenter by default when scrollDirection== Axis.horizontal
   /// Alignment.centerRight by default when scrollDirection== Axis.vertical
-  final Alignment alignment;
+  final Alignment? alignment;
 
   /// Distance between pagination and the container
   final EdgeInsetsGeometry margin;
@@ -265,24 +254,19 @@ class SwiperPagination extends SwiperPlugin {
   /// Build the widet
   final SwiperPlugin builder;
 
-  final Key key;
+  final Key? key;
 
   const SwiperPagination(
-      {this.alignment,
-      this.key,
-      this.margin: const EdgeInsets.all(10.0),
-      this.builder: SwiperPagination.dots});
+      {this.alignment, this.key, this.margin: const EdgeInsets.all(10.0), this.builder: SwiperPagination.dots});
 
-  Widget build(BuildContext context, SwiperPluginConfig config) {
-    Alignment alignment = this.alignment ??
-        (config.scrollDirection == Axis.horizontal
-            ? Alignment.bottomCenter
-            : Alignment.centerRight);
+  Widget build(BuildContext context, SwiperPluginConfig? config) {
+    Alignment alignment =
+        this.alignment ?? (config!.scrollDirection == Axis.horizontal ? Alignment.bottomCenter : Alignment.centerRight);
     Widget child = Container(
       margin: margin,
       child: this.builder.build(context, config),
     );
-    if (!config.outer) {
+    if (!config!.outer!) {
       child = new Align(
         key: key,
         alignment: alignment,

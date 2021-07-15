@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 class FormWidget extends StatelessWidget {
-  final String label;
+  final String? label;
 
-  final Widget child;
+  final Widget? child;
 
   FormWidget({this.label, this.child});
 
@@ -14,7 +14,7 @@ class FormWidget extends StatelessWidget {
         padding: new EdgeInsets.all(5.0),
         child: new Row(
           children: <Widget>[
-            new Text(label, style: new TextStyle(fontSize: 14.0)),
+            new Text(label!, style: new TextStyle(fontSize: 14.0)),
             new Expanded(
                 child:
                     new Align(alignment: Alignment.centerRight, child: child))
@@ -24,9 +24,9 @@ class FormWidget extends StatelessWidget {
 }
 
 class FormSelect<T> extends StatefulWidget {
-  final String placeholder;
-  final ValueChanged<T> valueChanged;
-  final List<dynamic> values;
+  final String? placeholder;
+  final ValueChanged<T>? valueChanged;
+  final List<dynamic>? values;
   final dynamic value;
 
   FormSelect({this.placeholder, this.valueChanged, this.value, this.values});
@@ -42,8 +42,8 @@ class _FormSelectState extends State<FormSelect> {
 
   @override
   void initState() {
-    for (int i = 0, c = widget.values.length; i < c; ++i) {
-      if (widget.values[i] == widget.value) {
+    for (int i = 0, c = widget.values!.length; i < c; ++i) {
+      if (widget.values![i] == widget.value) {
         _selectedIndex = i;
         break;
       }
@@ -54,21 +54,21 @@ class _FormSelectState extends State<FormSelect> {
 
   @override
   Widget build(BuildContext context) {
-    String placeholder = widget.placeholder;
-    List<dynamic> values = widget.values;
+    String? placeholder = widget.placeholder;
+    List<dynamic>? values = widget.values;
 
     return new Container(
       child: new InkWell(
         child: new Text(_selectedIndex < 0
-            ? placeholder
-            : values[_selectedIndex].toString()),
+            ? placeholder!
+            : values![_selectedIndex].toString()),
         onTap: () {
           _selectedIndex = 0;
           showBottomSheet(
               context: context,
               builder: (BuildContext context) {
                 return new SizedBox(
-                  height: values.length * 30.0 + 200.0,
+                  height: values!.length * 30.0 + 200.0,
                   child: new Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
@@ -89,7 +89,7 @@ class _FormSelectState extends State<FormSelect> {
                           onPressed: () {
                             if (_selectedIndex >= 0) {
                               widget
-                                  .valueChanged(widget.values[_selectedIndex]);
+                                  .valueChanged!(widget.values![_selectedIndex]);
                             }
 
                             setState(() {});
@@ -110,20 +110,20 @@ class _FormSelectState extends State<FormSelect> {
 }
 
 class NumberPad extends StatelessWidget {
-  final num number;
-  final num step;
-  final num max;
-  final num min;
-  final ValueChanged<num> onChangeValue;
+  final num? number;
+  final num? step;
+  final num? max;
+  final num? min;
+  final ValueChanged<num?>? onChangeValue;
 
   NumberPad({this.number, this.step, this.onChangeValue, this.max, this.min});
 
   void onAdd() {
-    onChangeValue(number + step > max ? max : number + step);
+    onChangeValue!(number! + step! > max! ? max : number! + step!);
   }
 
   void onSub() {
-    onChangeValue(number - step < min ? min : number - step);
+    onChangeValue!(number! - step! < min! ? min : number! - step!);
   }
 
   @override
@@ -133,7 +133,7 @@ class NumberPad extends StatelessWidget {
       children: <Widget>[
         new IconButton(icon: new Icon(Icons.exposure_neg_1), onPressed: onSub),
         new Text(
-          number is int ? number.toString() : number.toStringAsFixed(1),
+          number is int ? number.toString() : number!.toStringAsFixed(1),
           style: new TextStyle(fontSize: 14.0),
         ),
         new IconButton(icon: new Icon(Icons.exposure_plus_1), onPressed: onAdd)
